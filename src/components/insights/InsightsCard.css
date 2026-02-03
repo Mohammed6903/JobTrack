@@ -1,0 +1,144 @@
+/* InsightsCard Styles */
+.insights-card {
+    background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-primary-light) 100%);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-5);
+    margin-bottom: var(--spacing-6);
+    animation: fadeInUp var(--transition-slow);
+}
+
+.insights-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-4);
+}
+
+.insights-title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+}
+
+.insights-title h3 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    margin: 0;
+}
+
+.sparkle-icon {
+    color: var(--color-warning);
+}
+
+.insights-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+}
+
+.insight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-3);
+    padding: var(--spacing-3);
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    line-height: var(--line-height-relaxed);
+}
+
+.insight-icon {
+    flex-shrink: 0;
+    color: var(--color-primary);
+    margin-top: 2px;
+}
+
+.insights-timestamp {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    margin-top: var(--spacing-3);
+    text-align: right;
+}
+
+.insights-loading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+}
+
+.insight-skeleton {
+    height: 48px;
+    background: linear-gradient(90deg,
+            var(--color-bg-secondary) 0%,
+            var(--color-surface) 50%,
+            var(--color-bg-secondary) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: var(--radius-md);
+}
+
+.insight-skeleton.short {
+    width: 60%;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.insights-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-3);
+    padding: var(--spacing-4);
+    background: var(--color-danger-light);
+    border-radius: var(--radius-md);
+    text-align: center;
+}
+
+.insights-error svg {
+    color: var(--color-danger);
+}
+
+.insights-error p {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+.insights-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-3);
+    padding: var(--spacing-4);
+    text-align: center;
+}
+
+.insights-empty p {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+@media (prefers-color-scheme: dark) {
+    .insights-card {
+        background: linear-gradient(135deg, var(--color-surface) 0%, rgba(99, 102, 241, 0.1) 100%);
+    }
+}

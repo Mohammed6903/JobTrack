@@ -1,0 +1,166 @@
+/* ApplicationCard Component Styles */
+.application-card {
+    position: relative;
+}
+
+.application-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--spacing-3);
+    margin-bottom: var(--spacing-4);
+}
+
+.application-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.company-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    margin: 0 0 var(--spacing-1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.job-role {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+.application-actions {
+    position: relative;
+}
+
+.menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--color-text-muted);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.menu-button:hover {
+    background: var(--color-surface-hover);
+    color: var(--color-text);
+}
+
+.action-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 120px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    z-index: var(--z-dropdown);
+    animation: fadeInUp var(--transition-fast);
+}
+
+.action-menu button {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    width: 100%;
+    padding: var(--spacing-2) var(--spacing-3);
+    border: none;
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    text-align: left;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.action-menu button:hover {
+    background: var(--color-surface-hover);
+    color: var(--color-text);
+}
+
+.action-menu button.danger:hover {
+    background: var(--color-danger-light);
+    color: var(--color-danger);
+}
+
+.application-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+}
+
+.application-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-4);
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-1);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+.meta-item.link {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.meta-item.link:hover {
+    text-decoration: underline;
+}
+
+.stage-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+}
+
+.stage-chip {
+    padding: var(--spacing-1) var(--spacing-3);
+    border: 1px solid var(--color-border);
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.stage-chip:hover {
+    background: var(--color-surface-hover);
+}
+
+.stage-chip.active {
+    background: var(--stage-color);
+    border-color: var(--stage-color);
+    color: white;
+}
+
+@media (max-width: 480px) {
+    .stage-selector {
+        width: 100%;
+    }
+
+    .stage-chip {
+        flex: 1;
+        text-align: center;
+    }
+}

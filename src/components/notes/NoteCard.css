@@ -1,0 +1,59 @@
+/* NoteCard Component Styles */
+.note-card {
+    padding: var(--spacing-4);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    animation: fadeInUp var(--transition-normal);
+}
+
+.note-content {
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    line-height: var(--line-height-relaxed);
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.note-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: var(--spacing-3);
+    padding-top: var(--spacing-3);
+    border-top: 1px solid var(--color-border);
+}
+
+.note-timestamp {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+.note-actions {
+    display: flex;
+    gap: var(--spacing-1);
+}
+
+.note-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    color: var(--color-text-muted);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.note-action:hover {
+    background: var(--color-surface-hover);
+    color: var(--color-text);
+}
+
+.note-action.danger:hover {
+    background: var(--color-danger-light);
+    color: var(--color-danger);
+}
