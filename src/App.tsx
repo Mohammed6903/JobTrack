@@ -6,6 +6,7 @@ import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { Layout } from './components/layout/Layout';
 import { LoginPage } from './pages/LoginPage';
 import { SignupPage } from './pages/SignupPage';
+import { LandingPage } from './pages/LandingPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { ApplicationDetailPage } from './pages/ApplicationDetailPage';
 import { AnalyticsPage } from './pages/AnalyticsPage';
@@ -18,6 +19,7 @@ const App: React.FC = () => {
         <ToastProvider>
           <Routes>
             {/* Public routes */}
+            <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
 
@@ -29,7 +31,7 @@ const App: React.FC = () => {
                 </ProtectedRoute>
               }
             >
-              <Route path="/" element={<DashboardPage />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/application/:id" element={<ApplicationDetailPage />} />
               <Route path="/analytics" element={<AnalyticsPage />} />
             </Route>

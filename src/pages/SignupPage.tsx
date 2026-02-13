@@ -32,7 +32,7 @@ export const SignupPage: React.FC = () => {
 
         try {
             await signUp(email, password, displayName);
-            navigate('/');
+            navigate('/dashboard');
         } catch (err: any) {
             setError(err.message || 'Failed to create account');
         } finally {
