@@ -1,58 +1,74 @@
-# JobTrack 
+# JobTrack - AI-Powered Application Tracker
 
-**An Intelligent, AI-Powered Job Application Tracker**
+[![React](https://img.shields.io/badge/React-19.0-blue?style=for-the-badge&logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Firebase](https://img.shields.io/badge/Firebase-11.0-orange?style=for-the-badge&logo=firebase)](https://firebase.google.com/)
+[![Vite](https://img.shields.io/badge/Vite-6.0-purple?style=for-the-badge&logo=vite)](https://vitejs.dev/)
+[![Gemini AI](https://img.shields.io/badge/Gemini_AI-Powered-blueviolet?style=for-the-badge&logo=google)](https://ai.google.dev/)
 
-JobTrack is a modern, full-stack application designed to streamline the chaotic job search process. Built with **React**, **TypeScript**, and **Firebase**, it leverages **Google's Gemini AI** to provide actionable insights and smart note summarization, helping users stay organized and focused.
+**Live Demo:** [jobtrack.mohammedusmani.me](https://jobtrack.mohammedusmani.me)  
+**Repository:** [github.com/Mohammed6903/JobTrack](https://github.com/Mohammed6903/JobTrack)
 
-![Dashboard Preview](./src/assets/dashboard.png)
+## Overview
+
+**JobTrack** is a modern, full-stack productivity tool designed to streamline the chaotic job search process. Built with **React** and **TypeScript**, it leverages **Google's Gemini AI** to provide actionable intelligence on job descriptions and automated note summarization.
+
+This project demonstrates proficiency in building scalable frontend architectures, integrating complex third-party APIs (Firebase, Gemini AI), and creating data-driven visualizations.
+
+![Dashboard Preview](src/assets/dashboard.png)
 
 ## Key Features
 
 ### AI-Powered Intelligence
-- **Smart Application Insights**: Analyzes your application history to provide 2-4 actionable tips and trends. Powered by a resilient multi-model fallback chain (Gemini 3 Pro → Flash → 2.5).
-- **Note Summarizer**: Instantly condenses lengthy interview notes into concise summaries and key takeaways using AI.
-- **Resilient Architecture**: Automatically handles API rate limits by switching models and logging issues to Firestore.
+- **Smart Resume Analysis:** Uses Google's Gemini AI to analyze job descriptions against user profiles, offering 2-4 actionable tips to improve application success rates.
+- **Automated Summaries:** Instantly condenses lengthy interview notes into concise takeaways and next steps.
+- **Robust Model Fallback:** Implements a resilient AI chain (Gemini 2.5 → Flash → Pro) to ensure reliability even during high traffic or rate limiting.
 
-![AI Features Showcase](./src/assets/AI_Insights.png)
+### Interactive Analytics
+- **Visual Progress Tracking:** Powered by `recharts`, users can visualize their application velocity, stage distribution, and success rates over time.
+- **Data-Driven Insights:** Helps users identify bottlenecks in their application process (e.g., failing at the resume stage vs. interview stage).
 
-### Comprehensive Analytics
-- **Visual Progress Tracking**: Beautiful charts and graphs to visualize your job search journey.
-- **Stage Distribution**: See exactly where your applications stand at a glance.
-- **Activity Timeline**: Track your application velocity over time.
+### Advanced Job Management
+- **Kanban Workflow:** Drag-and-drop interface (Applied → Interview → Offer → Rejected) managing the entire application lifecycle.
+- **Detailed Tracking:** maintain comprehensive records including salary expectations, remote status, and interview rounds.
 
-![Analytics Dashboard](./src/assets/analytics.png)
-
-### Premium User Experience
-- **Modern Design System**: Custom-built CSS variable system with glassmorphism, premium gradients, and smooth animations.
-- **Dark Mode Support**: Fully responsive dark theme that respects user preferences.
-- **Interactive UI**: Shimmer loading states, toast notifications, and seamless transitions.
-
-### Core Functionality
-- **Kanban-style Tracking**: Manage applications through Applied, Interview, Offer, and Rejected stages.
-- **Advanced Filtering**: Real-time search and stage-based filtering.
-- **Detailed Management**: maintain comprehensive notes and details for every application.
-
-![Application Details](./src/assets/application_details.png)
+### Secure & Scalable Architecture
+- **Authentication:** robust auth flow supporting Google, GitHub, and Email/Password (Firebase Auth).
+- **Real-time Database:** Instant data synchronization using Cloud Firestore.
+- **Responsive Design:** Mobile-first approach using CSS variables and modern layout techniques (Grid/Flexbox).
 
 ## Tech Stack
 
-- **Frontend**: React 18, TypeScript, Vite
-- **Styling**: Vanilla CSS (CSS Variables, Flexbox/Grid), Lucide React Icons
-- **Backend-as-a-Service**: Firebase (Auth, Firestore)
-- **AI Integration**: Firebase AI Logic SDK, Google Gemini Models
-- **Visualization**: Recharts for analytics
+- **Frontend:** React 19, TypeScript, Vite
+- **Backend-as-a-Service:** Firebase (Authentication, Firestore, Analytics)
+- **AI Integration:** Google Gemini API (via Firebase AI SDK)
+- **Visualization:** Recharts
+- **Styling:** CSS Modules / Vanilla CSS (Custom Design System)
+- **Icons:** Lucide React
+- **Date Handling:** date-fns
 
-## Feature Gallery
+## Screenshots
 
-| Login Process | AI Note Summaries |
-|---------------|-------------------|
-| ![Login](./src/assets/login.png) | ![AI Summaries](./src/assets/AI_notes_summaries.png) |
+| AI Insights | Analytics Dashboard |
+|:---:|:---:|
+| ![AI Insights](src/assets/AI_Insights.png) | ![Analytics](src/assets/analytics.png) |
+
+| Application Details | Login Flow |
+|:---:|:---:|
+| ![Details](src/assets/application_details.png) | ![Login](src/assets/login.png) |
 
 ## Getting Started
 
+### Prerequisites
+- Node.js (v18+)
+- Firebase Account
+
+### Installation
+
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/jobtrack.git
+   git clone https://github.com/Mohammed6903/JobTrack.git
+   cd JobTrack
    ```
 
 2. **Install dependencies**
@@ -60,13 +76,28 @@ JobTrack is a modern, full-stack application designed to streamline the chaotic 
    npm install
    ```
 
-3. **Configure Firebase**
-   - Create a project at [console.firebase.google.com](https://console.firebase.google.com)
-   - Enable Authentication (Email, Google, GitHub) and Firestore
-   - Enable **Firebase AI Logic** with Gemini API
-   - Copy `.env.example` to `.env` and fill in your credentials
+3. **Configure Environment**
+   Create a `.env` file in the root directory:
+   ```env
+   VITE_FIREBASE_API_KEY=your_api_key
+   VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+   VITE_FIREBASE_PROJECT_ID=your_project_id
+   VITE_FIREBASE_STORAGE_BUCKET=your_bucket
+   VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+   VITE_FIREBASE_APP_ID=your_app_id
+   ```
 
-4. **Run the app**
+4. **Run Development Server**
    ```bash
    npm run dev
    ```
+
+## Future Improvements
+- [ ] Drag-and-drop column reordering
+- [ ] Browser extension for one-click job saving
+- [ ] Email integration for automated status updates
+- [ ] Collaborative workspaces for mock interviews
+
+---
+
+*This project is built and maintained by [Mohammed Usmani](https://github.com/Mohammed6903).*
