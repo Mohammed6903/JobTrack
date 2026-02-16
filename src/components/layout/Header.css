@@ -105,15 +105,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--color-primary-light);
-    color: var(--color-primary);
+    background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%);
+    color: white;
     border-radius: var(--radius-full);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
 }
 
 .user-name {
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
     color: var(--color-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
 }
 
 .user-menu {

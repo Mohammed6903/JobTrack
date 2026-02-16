@@ -1,5 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import dashboardImg from '../assets/dashboard.png';
+import analyticsImg from '../assets/analytics.png';
+import aiInsightsImg from '../assets/AI_Insights.png';
+import applicationDetailsImg from '../assets/application_details.png';
 import './LandingPage.css';
 
 export const LandingPage: React.FC = () => {
@@ -27,48 +31,63 @@ export const LandingPage: React.FC = () => {
                         <button className="btn-lg btn-secondary" onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}>Learn More</button>
                     </div>
                 </div>
-                <div className="hero-visual">
-                    <div className="glass-card card-1">
-                        <div className="card-icon">🚀</div>
-                        <h3>Smart Tracking</h3>
-                        <p>Kanban board for all your applications</p>
-                    </div>
-                    <div className="glass-card card-2">
-                        <div className="card-icon">✨</div>
-                        <h3>AI Insights</h3>
-                        <p>Analyze job descriptions instantly</p>
-                    </div>
-                    <div className="glass-card card-3">
-                        <div className="card-icon">📝</div>
-                        <h3>Auto Summaries</h3>
-                        <p>Never miss a key detail</p>
-                    </div>
+                <div className="hero-image-container">
+                    <img src={dashboardImg} alt="JobTrack Dashboard" className="hero-dashboard-img" />
+                    <div className="hero-glow"></div>
                 </div>
             </header>
 
-            <section id="features" className="features-section">
-                <h2>Why JobTrack?</h2>
-                <div className="features-grid">
-                    <div className="feature-card">
-                        <div className="feature-icon">📊</div>
-                        <h3>Kanban Workflow</h3>
-                        <p>Visualize your progress from "Applied" to "Offer" with our intuitive drag-and-drop board.</p>
+            <section id="features" className="features-showcase">
+                <div className="showcase-container">
+                    <div className="showcase-item">
+                        <div className="showcase-content">
+                            {/* <div className="feature-icon">✨</div> */}
+                            <h2>AI-Powered Insights</h2>
+                            <p>
+                                Stop guessing. Get instant, AI-generated feedback on how well your resume matches the job description.
+                                JobTrack analyzes key requirements and gives you actionable tips to improve your chances.
+                            </p>
+                        </div>
+                        <div className="showcase-image">
+                            <img src={aiInsightsImg} alt="AI Insights" />
+                        </div>
                     </div>
-                    <div className="feature-card">
-                        <div className="feature-icon">🤖</div>
-                        <h3>AI Analysis</h3>
-                        <p>Get instant feedback on how well your resume matches the job description using Gemini AI.</p>
+
+                    <div className="showcase-item reverse">
+                        <div className="showcase-content">
+                            {/* <div className="feature-icon">📊</div> */}
+                            <h2>Visual Analytics</h2>
+                            <p>
+                                Visualize your progress. Track application velocity, stage distribution, and success rates over time.
+                                Stay motivated by seeing your journey in beautiful, interactive charts.
+                            </p>
+                        </div>
+                        <div className="showcase-image">
+                            <img src={analyticsImg} alt="Analytics Dashboard" />
+                        </div>
                     </div>
-                    <div className="feature-card">
-                        <div className="feature-icon">⚡</div>
-                        <h3>Quick Summaries</h3>
-                        <p>Paste notes and let AI summarize the key points, action items, and next steps.</p>
+
+                    <div className="showcase-item">
+                        <div className="showcase-content">
+                            {/* <div className="feature-icon">📝</div> */}
+                            <h2>Comprehensive Tracking</h2>
+                            <p>
+                                Keep everything in one place. Manage notes, interview dates, salary details, and more.
+                                Never lose track of a follow-up or forget a detail again.
+                            </p>
+                        </div>
+                        <div className="showcase-image">
+                            <img src={applicationDetailsImg} alt="Application Details" />
+                        </div>
                     </div>
-                    <div className="feature-card">
-                        <div className="feature-icon">🔒</div>
-                        <h3>Secure & Private</h3>
-                        <p>Your data is your own. Securely stored and accessible only to you.</p>
-                    </div>
+                </div>
+            </section>
+
+            <section className="cta-section">
+                <div className="cta-content">
+                    <h2>Ready to land your dream job?</h2>
+                    <p>Join thousands of job seekers who are organizing their search with JobTrack.</p>
+                    <button className="btn-lg btn-primary" onClick={() => navigate('/signup')}>Get Started for Free</button>
                 </div>
             </section>
 

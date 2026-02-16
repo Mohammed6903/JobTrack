@@ -7,7 +7,6 @@ import {
     LogOut,
     Menu,
     X,
-    User,
     BriefcaseIcon
 } from 'lucide-react';
 import './Header.css';
@@ -19,6 +18,8 @@ export const Header: React.FC = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [userMenuOpen, setUserMenuOpen] = useState(false);
 
+    const [imageError, setImageError] = useState(false);
+
     const handleLogout = async () => {
         try {
             await logout();
@@ -26,6 +27,16 @@ export const Header: React.FC = () => {
         } catch (error) {
             console.error('Failed to log out:', error);
         }
+    };
+
+    const getFirstName = (displayName: string | null | undefined) => {
+        if (!displayName) return 'User';
+        return displayName.split(' ')[0];
+    };
+
+    const getInitials = (displayName: string | null | undefined) => {
+        if (!displayName) return 'U';
+        return displayName.charAt(0).toUpperCase();
     };
 
     const navLinks = [
@@ -63,19 +74,20 @@ export const Header: React.FC = () => {
                             className="user-menu-trigger"
                             onClick={() => setUserMenuOpen(!userMenuOpen)}
                         >
-                            {currentUser?.photoURL ? (
+                            {currentUser?.photoURL && !imageError ? (
                                 <img
                                     src={currentUser.photoURL}
                                     alt={currentUser.displayName || 'User'}
                                     className="user-avatar"
+                                    onError={() => setImageError(true)}
                                 />
                             ) : (
                                 <div className="user-avatar-placeholder">
-                                    <User size={18} />
+                                    {getInitials(currentUser?.displayName)}
                                 </div>
                             )}
                             <span className="user-name">
-                                {currentUser?.displayName || 'User'}
+                                {getFirstName(currentUser?.displayName)}
                             </span>
                         </button>
 

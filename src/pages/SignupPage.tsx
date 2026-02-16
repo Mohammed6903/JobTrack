@@ -45,7 +45,7 @@ export const SignupPage: React.FC = () => {
         setLoading(true);
         try {
             await signInWithGoogle();
-            navigate('/');
+            navigate('/dashboard');
         } catch (err: any) {
             setError(err.message || 'Failed to sign in with Google');
         } finally {
@@ -58,7 +58,7 @@ export const SignupPage: React.FC = () => {
         setLoading(true);
         try {
             await signInWithGithub();
-            navigate('/');
+            navigate('/dashboard');
         } catch (err: any) {
             setError(err.message || 'Failed to sign in with GitHub');
         } finally {
