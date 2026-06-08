@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Mail, Lock, LogIn, Chrome, BriefcaseIcon } from 'lucide-react';
+import { Mail, Lock, LogIn, Chrome, BriefcaseIcon, LayoutGrid, Sparkles, LineChart } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
 import './AuthPages.css';
@@ -57,6 +57,40 @@ export const LoginPage: React.FC = () => {
 
     return (
         <div className="auth-page">
+            <aside className="auth-brand">
+                <div className="auth-brand-inner">
+                    <Link to="/" className="auth-brand-logo">
+                        <span className="auth-brand-logo-chip">
+                            <BriefcaseIcon size={20} />
+                        </span>
+                        JobTrack
+                    </Link>
+                    <h2 className="auth-brand-headline">
+                        Your job search,
+                        <br />
+                        <span className="gradient-text">under control.</span>
+                    </h2>
+                    <p className="auth-brand-sub">
+                        Track every application, get AI-powered insights, and see your entire
+                        pipeline at a glance.
+                    </p>
+                    <ul className="auth-brand-points">
+                        <li>
+                            <LayoutGrid size={16} />
+                            Drag-and-drop Kanban pipeline
+                        </li>
+                        <li>
+                            <Sparkles size={16} />
+                            AI insights on your applications
+                        </li>
+                        <li>
+                            <LineChart size={16} />
+                            Visual analytics & conversion rates
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+
             <div className="auth-container">
                 <div className="auth-header">
                     <div className="auth-logo">

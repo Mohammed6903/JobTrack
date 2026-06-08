@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Mail, Lock, User, UserPlus, Chrome, BriefcaseIcon } from 'lucide-react';
+import { Mail, Lock, User, UserPlus, Chrome, BriefcaseIcon, LayoutGrid, Sparkles, LineChart } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
 import './AuthPages.css';
@@ -68,6 +68,40 @@ export const SignupPage: React.FC = () => {
 
     return (
         <div className="auth-page">
+            <aside className="auth-brand">
+                <div className="auth-brand-inner">
+                    <Link to="/" className="auth-brand-logo">
+                        <span className="auth-brand-logo-chip">
+                            <BriefcaseIcon size={20} />
+                        </span>
+                        JobTrack
+                    </Link>
+                    <h2 className="auth-brand-headline">
+                        Land your next role,
+                        <br />
+                        <span className="gradient-text">organized.</span>
+                    </h2>
+                    <p className="auth-brand-sub">
+                        Join job seekers who run a calmer, smarter search with a single source of
+                        truth for every application.
+                    </p>
+                    <ul className="auth-brand-points">
+                        <li>
+                            <LayoutGrid size={16} />
+                            Drag-and-drop Kanban pipeline
+                        </li>
+                        <li>
+                            <Sparkles size={16} />
+                            AI insights on your applications
+                        </li>
+                        <li>
+                            <LineChart size={16} />
+                            Visual analytics & conversion rates
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+
             <div className="auth-container">
                 <div className="auth-header">
                     <div className="auth-logo">

@@ -2,68 +2,99 @@
 .header {
     position: sticky;
     top: 0;
-    background: var(--color-surface);
+    background: var(--glass-bg);
+    backdrop-filter: var(--backdrop-blur);
+    -webkit-backdrop-filter: var(--backdrop-blur);
     border-bottom: 1px solid var(--color-border);
     z-index: 50;
+}
+
+/* Faint accent glow under the bar */
+.header::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-primary-glow), transparent);
+    opacity: 0.5;
 }
 
 .header-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 1280px;
+    max-width: 1440px;
     margin: 0 auto;
-    padding: var(--spacing-4);
+    padding: var(--spacing-3) var(--spacing-6);
     gap: var(--spacing-4);
 }
 
 .header-logo {
     display: flex;
     align-items: center;
-    gap: var(--spacing-2);
+    gap: var(--spacing-3);
     text-decoration: none;
 }
 
 .header-logo .logo-icon {
-    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    background: var(--gradient-primary);
+    color: #fff;
+    box-shadow: var(--shadow-glow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.header-logo .logo-icon svg {
+    width: 20px;
+    height: 20px;
 }
 
 .header-logo .logo-text {
     font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-bold);
-    background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-weight: var(--font-weight-extrabold);
+    letter-spacing: -0.02em;
+    color: var(--color-text);
 }
 
+/* Desktop nav as a segmented pill */
 .header-nav {
     display: flex;
     align-items: center;
     gap: var(--spacing-1);
+    padding: 4px;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
 }
 
 .nav-link {
+    position: relative;
     display: flex;
     align-items: center;
     gap: var(--spacing-2);
-    padding: var(--spacing-2) var(--spacing-3);
+    padding: var(--spacing-2) var(--spacing-4);
     color: var(--color-text-secondary);
     text-decoration: none;
     font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    border-radius: var(--radius-md);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-full);
     transition: all var(--transition-fast);
 }
 
 .nav-link:hover {
     color: var(--color-text);
-    background: var(--color-surface-hover);
 }
 
 .nav-link.active {
-    color: var(--color-primary);
-    background: var(--color-primary-light);
+    color: #fff;
+    background: var(--gradient-primary);
+    box-shadow: var(--shadow-glow-sm);
 }
 
 .header-actions {
@@ -80,32 +111,33 @@
     display: flex;
     align-items: center;
     gap: var(--spacing-2);
-    padding: var(--spacing-1) var(--spacing-2);
-    border: none;
-    background: transparent;
+    padding: 5px var(--spacing-3) 5px 5px;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
     cursor: pointer;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-full);
     transition: all var(--transition-fast);
 }
 
 .user-menu-trigger:hover {
     background: var(--color-surface-hover);
+    border-color: var(--color-border-strong);
 }
 
 .user-avatar {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     border-radius: var(--radius-full);
     object-fit: cover;
 }
 
 .user-avatar-placeholder {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--color-primary) 0%, #8b5cf6 100%);
+    background: var(--gradient-primary);
     color: white;
     border-radius: var(--radius-full);
     font-weight: var(--font-weight-bold);
@@ -115,7 +147,7 @@
 
 .user-name {
     font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-semibold);
     color: var(--color-text);
     white-space: nowrap;
     overflow: hidden;
@@ -127,24 +159,25 @@
     position: absolute;
     top: calc(100% + var(--spacing-2));
     right: 0;
-    min-width: 200px;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
+    min-width: 220px;
+    background: var(--color-surface-elevated);
+    border: 1px solid var(--color-border-strong);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-xl);
     overflow: hidden;
     animation: fadeInUp var(--transition-fast);
     z-index: var(--z-dropdown);
 }
 
 .user-menu-header {
-    padding: var(--spacing-3) var(--spacing-4);
+    padding: var(--spacing-4);
     border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg-secondary);
 }
 
 .user-menu-name {
     font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-semibold);
     color: var(--color-text);
     margin: 0;
 }
@@ -165,6 +198,7 @@
     background: transparent;
     color: var(--color-text-secondary);
     font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
     text-align: left;
     cursor: pointer;
     transition: all var(--transition-fast);
@@ -181,8 +215,8 @@
     justify-content: center;
     width: 40px;
     height: 40px;
-    border: none;
-    background: transparent;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
     color: var(--color-text);
     cursor: pointer;
     border-radius: var(--radius-md);
@@ -194,10 +228,7 @@
 
 .menu-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background: transparent;
     z-index: 40;
 }
@@ -205,14 +236,17 @@
 @media (max-width: 768px) {
     .header-nav {
         position: fixed;
-        top: 64px;
-        left: 0;
-        right: 0;
+        top: 68px;
+        left: var(--spacing-4);
+        right: var(--spacing-4);
         flex-direction: column;
-        background: var(--color-surface);
-        border-bottom: 1px solid var(--color-border);
+        align-items: stretch;
+        background: var(--color-surface-elevated);
+        border: 1px solid var(--color-border-strong);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-xl);
         padding: var(--spacing-2);
-        transform: translateY(-100%);
+        transform: translateY(-12px);
         opacity: 0;
         pointer-events: none;
         transition: all var(--transition-normal);
@@ -227,6 +261,7 @@
 
     .nav-link {
         padding: var(--spacing-3) var(--spacing-4);
+        border-radius: var(--radius-md);
     }
 
     .mobile-menu-toggle {

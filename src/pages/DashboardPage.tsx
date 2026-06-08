@@ -1,18 +1,27 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Briefcase } from 'lucide-react';
+import { Plus, Briefcase, Layers, Trophy, Activity } from 'lucide-react';
 import type { Application, ApplicationStage } from '../types';
 import { useAuth } from '../contexts/AuthContext';
 import { useToast } from '../components/ui/Toast';
 import { applicationService } from '../services/applicationService';
 import { ApplicationCard } from '../components/applications/ApplicationCard';
 import { ApplicationForm } from '../components/applications/ApplicationForm';
-import { ApplicationFilters } from '../components/applications/ApplicationFilters';
+import { ApplicationFilters, type BoardView } from '../components/applications/ApplicationFilters';
+import { KanbanBoard } from '../components/applications/KanbanBoard';
 import { Modal } from '../components/ui/Modal';
 import { Button } from '../components/ui/Button';
 import { EmptyState } from '../components/ui/EmptyState';
 import { InsightsCard } from '../components/insights/InsightsCard';
 import './DashboardPage.css';
+
+interface PipelineStat {
+    key: string;
+    label: string;
+    value: string;
+    icon: React.ReactNode;
+    color: string;
+}
 
 export const DashboardPage: React.FC = () => {
     const { currentUser } = useAuth();
@@ -25,9 +34,10 @@ export const DashboardPage: React.FC = () => {
     const [editingApplication, setEditingApplication] = useState<Application | null>(null);
     const [submitting, setSubmitting] = useState(false);
 
-    // Filters
+    // Filters & view
     const [searchQuery, setSearchQuery] = useState('');
     const [stageFilter, setStageFilter] = useState<ApplicationStage | 'all'>('all');
+    const [view, setView] = useState<BoardView>('board');
 
     useEffect(() => {
         loadApplications();
@@ -46,15 +56,42 @@ export const DashboardPage: React.FC = () => {
         }
     };
 
-    const filteredApplications = useMemo(() => {
-        return applications.filter((app) => {
-            const matchesSearch =
-                app.companyName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                app.role.toLowerCase().includes(searchQuery.toLowerCase());
-            const matchesStage = stageFilter === 'all' || app.stage === stageFilter;
-            return matchesSearch && matchesStage;
-        });
-    }, [applications, searchQuery, stageFilter]);
+    // Search applies in both views; stage filter applies only in list view.
+    const searchFiltered = useMemo(() => {
+        const q = searchQuery.toLowerCase();
+        return applications.filter(
+            (app) =>
+                app.companyName.toLowerCase().includes(q) || app.role.toLowerCase().includes(q)
+        );
+    }, [applications, searchQuery]);
+
+    const listFiltered = useMemo(
+        () => searchFiltered.filter((app) => stageFilter === 'all' || app.stage === stageFilter),
+        [searchFiltered, stageFilter]
+    );
+
+    const visibleApplications = view === 'board' ? searchFiltered : listFiltered;
+
+    const stats: PipelineStat[] = useMemo(() => {
+        const counts = applications.reduce(
+            (acc, app) => {
+                acc[app.stage] = (acc[app.stage] || 0) + 1;
+                return acc;
+            },
+            {} as Record<ApplicationStage, number>
+        );
+        const total = applications.length;
+        const active = (counts.applied || 0) + (counts.interview || 0);
+        const offers = counts.offer || 0;
+        const responded = (counts.interview || 0) + (counts.offer || 0) + (counts.rejected || 0);
+        const responseRate = total > 0 ? Math.round((responded / total) * 100) : 0;
+        return [
+            { key: 'total', label: 'Total', value: String(total), icon: <Briefcase size={18} />, color: 'var(--color-primary)' },
+            { key: 'active', label: 'Active', value: String(active), icon: <Layers size={18} />, color: 'var(--stage-applied)' },
+            { key: 'offers', label: 'Offers', value: String(offers), icon: <Trophy size={18} />, color: 'var(--stage-offer)' },
+            { key: 'response', label: 'Response Rate', value: `${responseRate}%`, icon: <Activity size={18} />, color: 'var(--stage-interview)' },
+        ];
+    }, [applications]);
 
     const handleSubmit = async (
         data: Omit<Application, 'id' | 'createdAt' | 'updatedAt'>
@@ -108,16 +145,22 @@ export const DashboardPage: React.FC = () => {
         stage: ApplicationStage
     ) => {
         if (!currentUser) return;
+
+        // Optimistic update so the drag feels instant
+        const previous = applications;
+        setApplications((apps) =>
+            apps.map((app) => (app.id === applicationId ? { ...app, stage } : app))
+        );
+
         try {
             await applicationService.updateApplicationStage(
                 currentUser.uid,
                 applicationId,
                 stage
             );
-            showToast('Stage updated', 'success');
-            await loadApplications();
         } catch (error) {
             console.error('Error updating stage:', error);
+            setApplications(previous);
             showToast('Failed to update stage', 'error');
         }
     };
@@ -150,6 +193,24 @@ export const DashboardPage: React.FC = () => {
             </div>
 
             {applications.length > 0 && (
+                <div className="pipeline-strip stagger-children">
+                    {stats.map((stat) => (
+                        <div
+                            key={stat.key}
+                            className="pipeline-stat animate-fade-in-up"
+                            style={{ '--stat-color': stat.color } as React.CSSProperties}
+                        >
+                            <span className="pipeline-stat-icon">{stat.icon}</span>
+                            <div className="pipeline-stat-text">
+                                <span className="pipeline-stat-value mono">{stat.value}</span>
+                                <span className="pipeline-stat-label">{stat.label}</span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
+
+            {applications.length > 0 && (
                 <InsightsCard applications={applications} />
             )}
 
@@ -159,7 +220,9 @@ export const DashboardPage: React.FC = () => {
                     onSearchChange={setSearchQuery}
                     stageFilter={stageFilter}
                     onStageFilterChange={setStageFilter}
-                    resultCount={filteredApplications.length}
+                    resultCount={visibleApplications.length}
+                    view={view}
+                    onViewChange={setView}
                 />
             )}
 
@@ -173,15 +236,23 @@ export const DashboardPage: React.FC = () => {
                         onClick: () => setShowModal(true),
                     }}
                 />
-            ) : filteredApplications.length === 0 ? (
+            ) : visibleApplications.length === 0 ? (
                 <EmptyState
                     icon={<Briefcase size={32} />}
                     title="No results found"
                     description="Try adjusting your search or filters."
                 />
+            ) : view === 'board' ? (
+                <KanbanBoard
+                    applications={visibleApplications}
+                    onStageChange={handleStageChange}
+                    onEdit={handleEdit}
+                    onDelete={handleDelete}
+                    onCardClick={(id) => navigate(`/application/${id}`)}
+                />
             ) : (
                 <div className="applications-grid">
-                    {filteredApplications.map((application) => (
+                    {visibleApplications.map((application) => (
                         <ApplicationCard
                             key={application.id}
                             application={application}

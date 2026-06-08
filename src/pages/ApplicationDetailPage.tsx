@@ -123,12 +123,25 @@ export const ApplicationDetailPage: React.FC = () => {
 
             <div className="detail-card">
                 <div className="detail-header">
-                    <div className="detail-info">
-                        <h1>{application.companyName}</h1>
-                        <p className="detail-role">
-                            <Briefcase size={18} />
-                            {application.role}
-                        </p>
+                    <div className="detail-identity">
+                        <div className="detail-avatar" aria-hidden="true">
+                            {application.companyName.charAt(0).toUpperCase()}
+                        </div>
+                        <div className="detail-info">
+                            <div className="detail-title-row">
+                                <h1>{application.companyName}</h1>
+                                <span
+                                    className="detail-stage-badge"
+                                    style={{ '--stage-color': STAGE_COLORS[application.stage] } as React.CSSProperties}
+                                >
+                                    {STAGE_LABELS[application.stage]}
+                                </span>
+                            </div>
+                            <p className="detail-role">
+                                <Briefcase size={18} />
+                                {application.role}
+                            </p>
+                        </div>
                     </div>
                     <div className="detail-actions">
                         <Button variant="outline" size="sm" onClick={() => setShowEditModal(true)}>

@@ -43,6 +43,11 @@ export const ApplicationCard: React.FC<ApplicationCardProps> = ({
 
     return (
         <Card className="application-card" hoverable onClick={onClick}>
+            <span
+                className="application-card-accent"
+                style={{ background: STAGE_COLORS[application.stage] }}
+                aria-hidden="true"
+            />
             <CardContent>
                 <div className="application-card-header">
                     <div className="application-info">

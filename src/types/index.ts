@@ -36,5 +36,5 @@ export const STAGE_COLORS: Record<ApplicationStage, string> = {
     applied: '#3b82f6',
     interview: '#f59e0b',
     offer: '#10b981',
-    rejected: '#ef4444',
+    rejected: '#f43f5e',
 };

@@ -3,6 +3,19 @@
     position: relative;
 }
 
+.application-card-accent {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+}
+
+.application-card .card-content {
+    padding-left: calc(var(--spacing-5) + 3px);
+}
+
 .application-card-header {
     display: flex;
     justify-content: space-between;
@@ -152,6 +165,7 @@
     background: var(--stage-color);
     border-color: var(--stage-color);
     color: white;
+    box-shadow: 0 0 16px color-mix(in srgb, var(--stage-color) 35%, transparent);
 }
 
 @media (max-width: 480px) {
